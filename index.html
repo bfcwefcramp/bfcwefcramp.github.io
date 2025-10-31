@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSME Scheme Finder - Discover Your Perfect Scheme</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         body {
             box-sizing: border-box;
@@ -1303,10 +1303,9 @@
                 };
             });
 
-            // Sort by match score and take top 3
+            // Sort by match score
             filteredSchemes = scoredSchemes
-                .sort((a, b) => b.matchScore - a.matchScore)
-                .slice(0, 3);
+                .sort((a, b) => b.matchScore - a.matchScore);
 
             displaySchemes();
         }
@@ -1380,13 +1379,13 @@
 
         // Add click handlers for apply buttons
         document.addEventListener('click', function(e) {
-            if (e.target.textContent === 'Apply Now') {
-                const schemeName = e.target.closest('.bg-white').querySelector('h3').textContent;
+            if (e.target.matches('.apply-btn')) {
+                const schemeName = e.target.dataset.scheme;
                 showApplicationModal(schemeName);
             }
             
-            if (e.target.textContent === 'Details') {
-                const schemeName = e.target.closest('.bg-white').querySelector('h3').textContent;
+            if (e.target.matches('.details-btn')) {
+                const schemeName = e.target.dataset.scheme;
                 showDetailsModal(schemeName);
             }
         });
