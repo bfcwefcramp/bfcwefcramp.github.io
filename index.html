@@ -1323,50 +1323,42 @@
             noResults.classList.add('hidden');
             
             schemeGrid.innerHTML = filteredSchemes.map(scheme => `
-                <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="bg-white rounded-lg shadow-md p-6 card-hover flex flex-col">
                     <div class="flex items-start justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-800 leading-tight">${scheme.name}</h3>
-                        <div class="flex flex-col items-end ml-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full whitespace-nowrap mb-1">
-                                ${scheme.category}
-                            </span>
-                            ${scheme.matchPercentage ? `<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                                ${scheme.matchPercentage}% Match
-                            </span>` : ''}
+                        <h3 class="text-lg font-bold text-gray-800 leading-tight">${scheme.name}</h3>
+                        <div class="ml-4 flex-shrink-0 text-right">
+                            <div class="font-bold text-xl text-blue-600">${scheme.matchPercentage}%</div>
+                            <div class="text-xs text-gray-500">Match</div>
                         </div>
                     </div>
                     
-                    <p class="text-gray-600 mb-4 text-sm leading-relaxed">${scheme.description}</p>
+                    <p class="text-gray-600 mb-4 text-sm leading-relaxed flex-grow">${scheme.description}</p>
                     
                     <div class="space-y-2 mb-4">
                         <div class="flex items-center text-sm">
-                            <span class="font-medium text-gray-700 w-20">Max Loan:</span>
-                            <span class="text-green-600">${scheme.maxLoan}</span>
+                            <span class="w-6 text-center mr-2">💰</span>
+                            <span class="font-semibold text-gray-700 mr-2">Max Loan:</span>
+                            <span class="text-gray-800">${scheme.maxLoan}</span>
                         </div>
                         <div class="flex items-center text-sm">
-                            <span class="font-medium text-gray-700 w-20">Subsidy:</span>
-                            <span class="text-blue-600">${scheme.subsidy}</span>
+                            <span class="w-6 text-center mr-2">💸</span>
+                            <span class="font-semibold text-gray-700 mr-2">Subsidy:</span>
+                            <span class="text-gray-800">${scheme.subsidy}</span>
                         </div>
                         <div class="flex items-center text-sm">
-                            <span class="font-medium text-gray-700 w-20">Interest:</span>
-                            <span class="text-orange-600 font-semibold">${scheme.interestRate}% p.a.</span>
-                        </div>
-                        <div class="flex items-center text-sm">
-                            <span class="font-medium text-gray-700 w-20">For:</span>
-                            <span class="text-purple-600">${scheme.msmeClass.join(', ')}</span>
+                            <span class="w-6 text-center mr-2">👥</span>
+                            <span class="font-semibold text-gray-700 mr-2">For:</span>
+                            <span class="text-gray-800">${scheme.msmeClass.join(', ')}</span>
                         </div>
                     </div>
                     
-                    <div class="border-t pt-4">
-                        <p class="text-xs text-gray-500 mb-3">
-                            <strong>Eligibility:</strong> ${scheme.eligibility}
-                        </p>
-                        <div class="flex space-x-2">
-                            <button class="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700 transition-colors flex-1">
-                                Apply Now
-                            </button>
-                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded text-sm hover:bg-gray-300 transition-colors">
+                    <div class="border-t pt-4 mt-auto">
+                        <div class="flex justify-between items-center">
+                            <button class="details-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-sm font-semibold" data-scheme="${scheme.name}">
                                 Details
+                            </button>
+                            <button class="apply-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-sm font-semibold" data-scheme="${scheme.name}">
+                                Apply Now
                             </button>
                         </div>
                     </div>
@@ -1401,19 +1393,18 @@
                 modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
                 modal.innerHTML = `
                     <div class="bg-white rounded-lg p-6 max-w-md w-full">
-                        <h3 class="text-xl font-semibold mb-4">🎉 Application Process</h3>
-                        <p class="text-gray-600 mb-4">To apply for <strong>${schemeName}</strong>:</p>
-                        <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700 mb-6">
-                            <li>Visit the official government portal</li>
-                            <li>Register with your business details</li>
-                            <li>Upload required documents</li>
-                            <li>Submit your application</li>
-                            <li>Track application status online</li>
-                        </ol>
-                        <div class="flex space-x-3">
-                            <button onclick="this.closest('.fixed').remove()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors flex-1">
-                                Close
-                            </button>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-semibold">Application Information</h3>
+                            <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-800">&times;</button>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            Application for <strong>${schemeName}</strong> is not available through an online portal at this moment.
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            Please visit the nearest office or check the official website for more details on the application process.
+                        </p>
+                        <div class="mt-6 text-right">
+                            <button onclick="this.closest('.fixed').remove()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Close</button>
                         </div>
                     </div>
                 `;
@@ -1423,255 +1414,152 @@
 
         function showDetailsModal(schemeName) {
             const scheme = schemes.find(s => s.name === schemeName);
+            if (!scheme) return;
+
+            // Disable body scroll
+            document.body.style.overflow = 'hidden';
+
             const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-4';
             
+            const closeModal = () => {
+                document.body.style.overflow = 'auto';
+                modal.remove();
+            };
+
             // Create comprehensive details for all schemes
             const getSchemeDetails = (scheme) => {
                 const baseDetails = {
                     objective: scheme.detailedInfo?.objective || `To support ${scheme.msmeClass.join('/')} enterprises in ${scheme.activity.join('/')} sector through financial assistance and various benefits.`,
                     benefits: scheme.detailedInfo?.benefits || [
                         `Financial assistance up to ${scheme.maxLoan}`,
-                        `Subsidy support: ${scheme.subsidy}`,
-                        `Suitable for ${scheme.msmeClass.join('/')} enterprises`,
+                        `Subsidy of ${scheme.subsidy}`,
+                        `Focus on ${scheme.msmeClass.join('/')} enterprises`,
                         `Covers ${scheme.activity.join('/')} activities`
                     ],
                     eligibilityDetails: scheme.detailedInfo?.eligibilityDetails || [
-                        `Must be classified as ${scheme.msmeClass.join('/')} enterprise`,
-                        `Business should be in ${scheme.activity.join('/')} sector`,
-                        `Should meet basic eligibility: ${scheme.eligibility}`,
+                        `Business must be classified as ${scheme.msmeClass.join(' or ')}`,
+                        `Applicable for ${scheme.activity.join('/')} sectors`,
+                        `Entrepreneur must be an Indian citizen`,
                         `Must be located in eligible areas: ${scheme.eligibleStates.join(', ')}`
                     ],
                     documents: scheme.detailedInfo?.documents || [
-                        "Udyam Registration Certificate",
-                        "Project report/Business plan",
-                        "Identity proof (Aadhaar Card)",
-                        "Address proof",
+                        "Aadhaar Card",
+                        "PAN Card",
+                        "Business Registration Certificate",
+                        "Project Report",
                         "Bank account details",
                         "Financial statements (if existing business)"
                     ],
                     applicationProcess: scheme.detailedInfo?.applicationProcess || [
-                        "Visit the official scheme portal",
-                        "Register with business details",
-                        "Fill the online application form",
-                        "Upload required documents",
-                        "Submit application for review",
-                        "Track application status online"
+                        "Visit the official portal for the scheme.",
+                        "Register your business and create a user profile.",
+                        "Fill out the online application form with all required details.",
+                        "Upload scanned copies of all necessary documents.",
+                        "Submit the application and keep track of the application status.",
+                        "Upon approval, funds will be disbursed as per the scheme guidelines."
                     ]
                 };
                 return baseDetails;
             };
-            
-            const detailedInfo = getSchemeDetails(scheme);
-            
-            modal.innerHTML = `
-                <div class="bg-white rounded-lg p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="text-2xl font-bold text-blue-600 mb-2">${scheme.name}</h3>
-                            <p class="text-gray-600">${scheme.description}</p>
-                        </div>
-                        <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700 text-3xl font-bold ml-4">×</button>
+          // Function is part of the original showDetailsModal function
+// NOTE: Assuming you have the 'schemes' array available in scope.
+
+const detailedInfo = getSchemeDetails(scheme);
+
+// The outer modal container is still the same (full-screen backdrop)
+// const modal = document.createElement('div');
+// modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+
+modal.innerHTML = `
+    <div class="bg-white rounded-lg shadow-2xl p-0 max-w-5xl w-full max-h-[90vh] 
+                flex flex-col overflow-hidden"> 
+        
+        <div class="p-6 pb-4 border-b border-gray-200 flex-shrink-0">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">${scheme.name}</h2>
+                    <p class="text-sm text-gray-500">${scheme.category}</p>
+                </div>
+                <button id="close-modal-btn-x" class="text-3xl text-gray-500 hover:text-gray-800 leading-none">&times;</button>
+            </div>
+        </div>
+
+        <div class="p-6 overflow-y-auto flex-grow" id="details-scroll-area">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2 border-l-4 border-blue-500 pl-3">🎯 Objective</h3>
+                        <p class="text-gray-600">${detailedInfo.objective}</p>
                     </div>
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <!-- Left Column -->
-                        <div class="space-y-6">
-                            <!-- Basic Information -->
-                            <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-400">
-                                <h4 class="font-semibold text-lg text-blue-800 mb-4 flex items-center">
-                                    📋 Basic Information
-                                </h4>
-                                <div class="space-y-3 text-sm">
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Category:</strong> 
-                                        <span class="text-blue-600 font-medium">${scheme.category}</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">MSME Class:</strong> 
-                                        <span class="text-purple-600 font-medium">${scheme.msmeClass.join(', ')}</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Activities:</strong> 
-                                        <span class="text-green-600 font-medium">${scheme.activity.join(', ')}</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Max Loan:</strong> 
-                                        <span class="text-red-600 font-medium">${scheme.maxLoan}</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Subsidy:</strong> 
-                                        <span class="text-orange-600 font-medium">${scheme.subsidy}</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Area Type:</strong> 
-                                        <span class="text-indigo-600 font-medium">${scheme.areaType}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Objective -->
-                            <div class="bg-green-50 p-5 rounded-lg border-l-4 border-green-400">
-                                <h4 class="font-semibold text-lg text-green-800 mb-4 flex items-center">
-                                    🎯 Scheme Objective
-                                </h4>
-                                <p class="text-sm text-gray-700 leading-relaxed">${detailedInfo.objective}</p>
-                            </div>
-                            
-                            <!-- Key Benefits -->
-                            <div class="bg-yellow-50 p-5 rounded-lg border-l-4 border-yellow-400">
-                                <h4 class="font-semibold text-lg text-yellow-800 mb-4 flex items-center">
-                                    💰 Key Benefits
-                                </h4>
-                                <ul class="space-y-2 text-sm text-gray-700">
-                                    ${detailedInfo.benefits.map(benefit => `
-                                        <li class="flex items-start">
-                                            <span class="text-yellow-600 mr-2">•</span>
-                                            <span>${benefit}</span>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                            
-                            <!-- Additional Features -->
-                            <div class="bg-indigo-50 p-5 rounded-lg border-l-4 border-indigo-400">
-                                <h4 class="font-semibold text-lg text-indigo-800 mb-4 flex items-center">
-                                    ⭐ Special Features
-                                </h4>
-                                <div class="grid grid-cols-2 gap-3 text-sm">
-                                    <div class="flex items-center">
-                                        <span class="${scheme.womenEntrepreneur ? 'text-green-600' : 'text-red-500'} mr-2">
-                                            ${scheme.womenEntrepreneur ? '✅' : '❌'}
-                                        </span>
-                                        <span>Women Entrepreneur</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="${scheme.exportOriented ? 'text-green-600' : 'text-red-500'} mr-2">
-                                            ${scheme.exportOriented ? '✅' : '❌'}
-                                        </span>
-                                        <span>Export Oriented</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="${scheme.technologyBased ? 'text-green-600' : 'text-red-500'} mr-2">
-                                            ${scheme.technologyBased ? '✅' : '❌'}
-                                        </span>
-                                        <span>Technology Based</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="${scheme.speciallyAbledSupport ? 'text-green-600' : 'text-red-500'} mr-2">
-                                            ${scheme.speciallyAbledSupport ? '✅' : '❌'}
-                                        </span>
-                                        <span>Specially Abled Support</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Right Column -->
-                        <div class="space-y-6">
-                            <!-- Employment Generation -->
-                            <div class="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-400">
-                                <h4 class="font-semibold text-lg text-purple-800 mb-4 flex items-center">
-                                    👥 Employment Generation
-                                </h4>
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Min Employment:</strong>
-                                        <span class="text-purple-600 font-medium">${scheme.minEmployment} persons</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Max Employment:</strong>
-                                        <span class="text-purple-600 font-medium">${scheme.maxEmployment} persons</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <strong class="text-gray-700">Social Categories:</strong>
-                                        <span class="text-purple-600 font-medium">${scheme.socialCategory.join(', ')}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Detailed Eligibility -->
-                            <div class="bg-red-50 p-5 rounded-lg border-l-4 border-red-400">
-                                <h4 class="font-semibold text-lg text-red-800 mb-4 flex items-center">
-                                    ✅ Detailed Eligibility Criteria
-                                </h4>
-                                <ul class="space-y-2 text-sm text-gray-700">
-                                    ${detailedInfo.eligibilityDetails.map(criteria => `
-                                        <li class="flex items-start">
-                                            <span class="text-red-600 mr-2">•</span>
-                                            <span>${criteria}</span>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                            
-                            <!-- Required Documents -->
-                            <div class="bg-orange-50 p-5 rounded-lg border-l-4 border-orange-400">
-                                <h4 class="font-semibold text-lg text-orange-800 mb-4 flex items-center">
-                                    📄 Required Documents
-                                </h4>
-                                <ul class="space-y-2 text-sm text-gray-700">
-                                    ${detailedInfo.documents.map(doc => `
-                                        <li class="flex items-start">
-                                            <span class="text-orange-600 mr-2">•</span>
-                                            <span>${doc}</span>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                            
-                            <!-- Application Process -->
-                            <div class="bg-teal-50 p-5 rounded-lg border-l-4 border-teal-400">
-                                <h4 class="font-semibold text-lg text-teal-800 mb-4 flex items-center">
-                                    🔄 Application Process
-                                </h4>
-                                <ol class="space-y-2 text-sm text-gray-700">
-                                    ${detailedInfo.applicationProcess.map((step, index) => `
-                                        <li class="flex items-start">
-                                            <span class="bg-teal-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">${index + 1}</span>
-                                            <span>${step}</span>
-                                        </li>
-                                    `).join('')}
-                                </ol>
-                            </div>
-                            
-                            <!-- Geographic Coverage -->
-                            <div class="bg-gray-50 p-5 rounded-lg border-l-4 border-gray-400">
-                                <h4 class="font-semibold text-lg text-gray-800 mb-4 flex items-center">
-                                    📍 Geographic Coverage
-                                </h4>
-                                <div class="space-y-2 text-sm">
-                                    <div>
-                                        <strong class="text-gray-700">Eligible States:</strong>
-                                        <span class="text-gray-600 ml-2">${scheme.eligibleStates.join(', ')}</span>
-                                    </div>
-                                    <div>
-                                        <strong class="text-gray-700">Eligible Districts:</strong>
-                                        <span class="text-gray-600 ml-2">${scheme.eligibleDistricts.join(', ')}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2 border-l-4 border-blue-500 pl-3">🌟 Key Benefits</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+                            ${detailedInfo.benefits.map(b => `<li>${b}</li>`).join('')}
+                        </ul>
                     </div>
-                    
-                    <!-- Action Buttons -->
-                    <div class="flex space-x-4 mt-8 pt-6 border-t border-gray-200">
-                        ${scheme.applyLink ? `
-                        <button onclick="window.open('${scheme.applyLink}', '_blank', 'noopener,noreferrer')" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition-colors flex-1 font-semibold text-lg shadow-lg">
-                            🚀 Apply Now
-                        </button>
-                        ` : `
-                        <button class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition-colors flex-1 font-semibold text-lg shadow-lg">
-                            🚀 Contact for Application
-                        </button>
-                        `}
-                        <button onclick="this.closest('.fixed').remove()" class="bg-gray-500 text-white px-8 py-3 rounded-lg hover:bg-gray-600 transition-colors font-semibold text-lg shadow-lg">
-                            Close
-                        </button>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2 border-l-4 border-blue-500 pl-3">✅ Eligibility Criteria</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+                            ${detailedInfo.eligibilityDetails.map(e => `<li>${e}</li>`).join('')}
+                        </ul>
                     </div>
                 </div>
-            `;
-            document.body.appendChild(modal);
+
+                <div>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2 border-l-4 border-blue-500 pl-3">📄 Documents Required</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+                            ${detailedInfo.documents.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2 border-l-4 border-blue-500 pl-3">➡️ Application Process</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-600 ml-4">
+                            ${detailedInfo.applicationProcess.map(p => `<li>${p}</li>`).join('')}
+                        </ol>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-3">💰 Key Financials</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-blue-600 font-medium">Max Loan Amount:</span>
+                                <span class="font-bold text-blue-800">${scheme.maxLoan}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-blue-600 font-medium">Subsidy:</span>
+                                <span class="font-bold text-blue-800">${scheme.subsidy}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-blue-600 font-medium">Interest Rate (approx):</span>
+                                <span class="font-bold text-blue-800">${scheme.interestRate}%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex space-x-4 p-6 pt-4 border-t border-gray-200 flex-shrink-0">
+            <button id="close-modal-btn-main" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors font-semibold flex-grow">
+                Close
+            </button>
+            <button class="apply-btn bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold flex-grow" data-scheme="${scheme.name}">
+                Apply Now
+            </button>
+        </div>
+    </div>
+`;
+document.body.appendChild(modal);
+
+// Add event listeners for closing the modal
+modal.querySelector('#close-modal-btn-x').addEventListener('click', closeModal);
+modal.querySelector('#close-modal-btn-main').addEventListener('click', closeModal);
         }
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99537e6a10a94728',t:'MTc2MTU4MTc0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
