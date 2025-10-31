@@ -674,7 +674,11 @@ const schemes = [
         applyLink: "https://lean.msme.gov.in/"
     },
     {
+<<<<<<< HEAD
         id: 20,
+=======
+        id: 21,
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
         name: "Intellectual Property Rights (IPR) Scheme",
         description: "Support for patent, trademark, and design registration",
         category: "IP Protection",
@@ -700,7 +704,11 @@ const schemes = [
         applyLink: "https://ipr.msme.gov.in/"
     },
     {
+<<<<<<< HEAD
         id: 21,
+=======
+        id: 23,
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
         name: "Procurement and Marketing Support Scheme",
         description: "Government procurement opportunities for MSMEs",
         category: "Marketing Support",

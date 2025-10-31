@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 let filteredSchemes = []; // Start with no schemes displayed
+=======
+let filteredSchemes = [...schemes]; // Show all schemes initially
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
 
 // DOM elements
 const advancedFilters = document.getElementById('advancedFilters');
@@ -12,6 +16,7 @@ const resultsSection = document.getElementById('resultsSection');
 const interestRateSlider = document.getElementById('interestRate');
 const interestRateValue = document.getElementById('interestRateValue');
 
+<<<<<<< HEAD
 function setInitialState() {
     resultsSection.classList.add('hidden');
     noResults.classList.remove('hidden');
@@ -23,6 +28,8 @@ function setInitialState() {
     schemeCount.textContent = '0';
 }
 
+=======
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
 // Advanced filters are always visible
 
 // Interest rate slider functionality
@@ -63,9 +70,15 @@ function clearAllFilters() {
     interestRateSlider.value = 15;
     interestRateValue.textContent = '15%';
     
+<<<<<<< HEAD
     // Reset to initial state
     filteredSchemes = [];
     setInitialState();
+=======
+    // Reset to show all schemes
+    filteredSchemes = [...schemes];
+    displaySchemes();
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
 }
 
 function applyFilters() {
@@ -238,9 +251,14 @@ function applyFilters() {
         };
     });
 
+<<<<<<< HEAD
     // Filter by match percentage > 75% and then sort by match score
     filteredSchemes = scoredSchemes
         .filter(scheme => scheme.matchPercentage > 75)
+=======
+    // Sort by match score
+    filteredSchemes = scoredSchemes
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
         .sort((a, b) => b.matchScore - a.matchScore);
 
     displaySchemes();
@@ -252,6 +270,7 @@ function displaySchemes() {
     if (filteredSchemes.length === 0) {
         resultsSection.classList.add('hidden');
         noResults.classList.remove('hidden');
+<<<<<<< HEAD
         // Restore the original "no results" message if it was changed
         noResults.innerHTML = `
             <div class="text-6xl mb-4">😔</div>
@@ -266,6 +285,8 @@ function displaySchemes() {
         if (newResetBtn) {
             newResetBtn.addEventListener('click', clearAllFilters);
         }
+=======
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
         return;
     }
     
@@ -317,7 +338,11 @@ function displaySchemes() {
 }
 
 // Initialize display
+<<<<<<< HEAD
 setInitialState();
+=======
+displaySchemes();
+>>>>>>> c57c20c73cabc23eb671137c1cebb445c43a720b
 
 // Add click handlers for apply buttons
 document.addEventListener('click', function(e) {
